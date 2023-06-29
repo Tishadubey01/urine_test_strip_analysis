@@ -60,5 +60,9 @@ POST request to upload the image. The image is uploaded using the key 'file'.
 http://localhost:5000/upload
 ```
 
+## Demo:
+
+https://github.com/Tishadubey01/urine_test_strip_analysis/assets/76221139/e4eae1da-4ed6-4445-be22-4f96f42b6afe
+
 
 
