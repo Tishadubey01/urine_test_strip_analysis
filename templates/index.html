@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Urine Strip Analysis</title>
+</head>
+<body>
+    <h1>Urine Strip Analysis</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept=".jpg, .png, .jpeg">
+        <input type="submit" value="Upload">
+    </form>
+    <div id="result"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Submit the form and display the result
+        $('form').submit(function(event) {
+            event.preventDefault();
+            
+            var form_data = new FormData(this);
+            
+            $.ajax({
+                type: 'POST',
+                url: '/upload',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    var result_html = '<h2>Color Analysis Result:</h2><ul>';
+                    $.each(data, function(key, value) {
+                        result_html += '<li>' + key + ': ' + value + '</li>';
+                    });
+                    result_html += '</ul>';
+                    $('#result').html(result_html);
+                },
+                error: function(xhr, status, error) {
+                    var error_message = JSON.parse(xhr.responseText).error;
+                    $('#result').html('<p>Error: ' + error_message + '</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
